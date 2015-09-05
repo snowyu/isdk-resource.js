@@ -23,20 +23,20 @@ buildTree = (aContents, result)->
   result
 
 describe 'ISDKResource', ->
-
+  testPath = __dirname+'/fixture'
   it 'should init', ->
     expect(loadCfgFile::fs).to.be.equal fs
     expect(loadCfgFolder::fs).to.be.equal fs
 
-  it.only 'should create a resource object', ->
-    result = Resource '.', ->
+  it 'should create a resource object', ->
+    result = Resource testPath, ->
     expect(result).have.ownProperty 'filter'
     expect(result.filter).to.be.a 'function'
     result.loadSync read:true
-    expect(result.contents).to.have.length 15
+    expect(result.contents).to.have.length 2
 
   it 'should create a resource object and filter', ->
-    result = Resource '.', src: '**/*.js'
+    result = Resource '.', src: '**/*.js',cwd:testPath
     expect(result).have.ownProperty 'filter'
     expect(result.filter).to.be.a 'function'
     result.loadSync read:true
@@ -44,7 +44,7 @@ describe 'ISDKResource', ->
     expect(result).to.be.deep.equal [ '<File? "index.js">' ]
 
   it 'should create a resource object and filter2', ->
-    result = Resource path:'.', src: '**/*.js', ->
+    result = Resource path:'.', src: '**/*.js',cwd:testPath, ->
     expect(result).have.ownProperty 'filter'
     expect(result.filter).to.be.a 'function'
     result.loadSync read:true
