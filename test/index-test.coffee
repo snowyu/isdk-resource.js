@@ -36,7 +36,7 @@ describe 'ISDKResource', ->
     expect(result.contents).to.have.length 2
 
   it 'should create a resource object and filter', ->
-    result = Resource '.', src: '**/*.js',cwd:testPath
+    result = Resource '.', src: '*.js',cwd:testPath
     expect(result).have.ownProperty 'filter'
     expect(result.filter).to.be.a 'function'
     result.loadSync read:true

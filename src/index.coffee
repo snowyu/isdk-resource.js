@@ -30,6 +30,6 @@ module.exports = class IsdkResource
     aOptions.filter = (file)->
       result = !@src
       unless result
-        result = minimatch file.path, @src, aOptions
+        result = minimatch path.relative(file.base, file.path), @src, aOptions
       result
     super aPath, aOptions, done
