@@ -32,7 +32,7 @@
     "load-config-file": "^0.2.3",
     "load-config-folder": "^0.1.0",
     "minimatch-ex": "0.0.1",
-    "resource-file": "^0.3.1",
+    "resource-file": "^0.3.4",
     "util-ex": "^0.3.14"
   },
   "devDependencies": {

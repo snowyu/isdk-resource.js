@@ -15,9 +15,9 @@ loadCfgFolder   = require 'load-config-folder'
 
 buildTree = (aContents, result)->
   aContents.forEach (i)->
-    if i.isDirectory()
+    if i.isDirectory() and i.content
       result.push v = {}
-      v[i.inspect()] = buildTree i.contents, []
+      v[i.inspect()] = buildTree(i.contents, [])
     else
       result.push i.inspect()
   result
@@ -33,7 +33,7 @@ describe 'ISDKResource', ->
     expect(result).have.ownProperty 'filter'
     expect(result.filter).to.be.a 'function'
     result.loadSync read:true
-    expect(result.contents).to.have.length 2
+    expect(result.contents).to.have.length 3
 
   it 'should create a resource object and filter', ->
     result = Resource '.', src: '*.js',cwd:testPath
@@ -50,3 +50,11 @@ describe 'ISDKResource', ->
     result.loadSync read:true
     result = buildTree result.contents, []
     expect(result).to.be.deep.equal [ '<File? "index.js">' ]
+
+  it 'should create a resource object and filter3', ->
+    result = Resource path:'.', src: ['**/*.js', '**/'],cwd:testPath, ->
+    expect(result).have.ownProperty 'filter'
+    expect(result.filter).to.be.a 'function'
+    result.loadSync read:true
+    result = buildTree result.contents, []
+    expect(result).to.be.deep.equal [ '<Folder? "folder">', '<File? "index.js">' ]
