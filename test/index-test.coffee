@@ -58,3 +58,31 @@ describe 'ISDKResource', ->
     result.loadSync read:true
     result = buildTree result.contents, []
     expect(result).to.be.deep.equal [ '<Folder? "folder">', '<File? "index.js">' ]
+
+  describe 'indexOfSync', ->
+    it 'should indexof a file contents', ->
+      file = Resource path:'./folder/README.md', cwd:testPath
+      result = file.indexOfSync 'config'
+      expect(file.contents.toString().slice(result, result+6)).be.equal 'config'
+
+    it 'should indexof a folder contents', ->
+      file = Resource path:'.', cwd:testPath
+      result = file.indexOfSync 'test'
+      result = file.contents[result]
+      expect(result.basename.indexOf('test')).to.be.at.least 0
+
+  describe 'indexOf', ->
+    it 'should indexof a file contents', (done)->
+      file = Resource path:'./folder/README.md', cwd:testPath
+      file.indexOf 'config', (err, result)->
+        unless err
+          expect(file.contents.toString().slice(result, result+6)).be.equal 'config'
+        done(err)
+
+    it 'should indexof a folder contents', (done)->
+      file = Resource path:'.', cwd:testPath
+      file.indexOf 'test', (err, result)->
+        unless err
+          result = file.contents[result]
+          expect(result.basename.indexOf('test')).to.be.at.least 0
+        done(err)
