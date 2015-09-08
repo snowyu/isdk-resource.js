@@ -33,7 +33,7 @@ describe 'ISDKResource', ->
     expect(result).have.ownProperty 'filter'
     expect(result.filter).to.be.a 'function'
     result.loadSync read:true
-    expect(result.contents).to.have.length 3
+    expect(result.contents).to.have.length 4
 
   it 'should create a resource object and filter', ->
     result = Resource '.', src: '*.js',cwd:testPath
@@ -57,7 +57,7 @@ describe 'ISDKResource', ->
     expect(result.filter).to.be.a 'function'
     result.loadSync read:true
     result = buildTree result.contents, []
-    expect(result).to.be.deep.equal [ '<Folder? "folder">', '<File? "index.js">' ]
+    expect(result).to.be.deep.equal [ '<Folder? "folder">', '<File? "index.js">', '<Folder? "zfolder">' ]
 
   describe 'indexOfSync', ->
     it 'should indexof a file contents', ->
