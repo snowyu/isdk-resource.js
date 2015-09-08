@@ -68,14 +68,16 @@ module.exports = class IsdkResource
   _findSync: (aContents, aSearchValue, aFile)->
     if isArray aContents
       aFromIndex = 0 unless aFromIndex >= 0
+      vDirs = []
       for i in [aFromIndex...aContents.length]
         file = aContents[i]
         if file.relative.indexOf(aSearchValue) isnt -1
           result = file
           break
-        if file.isDirectory()
-          result = file.findSync(aSearchValue)
-          break if result
+        vDirs.push file if file.isDirectory()
+      while !result and vDirs.length
+        file = vDirs.pop()
+        result = file.findSync aSearchValue
     else if aContents
       i = aContents.toString().indexOf(aSearchValue, aFromIndex)
       result = i if i isnt -1
@@ -115,6 +117,6 @@ module.exports = class IsdkResource
     that = @
     @load read:true, (err, contents)->
       return done(err) if err
-      result = that._find contents, aSearchValue, that, done
+      that._find contents, aSearchValue, that, done
       return
     @
