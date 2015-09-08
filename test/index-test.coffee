@@ -86,3 +86,31 @@ describe 'ISDKResource', ->
           result = file.contents[result]
           expect(result.basename.indexOf('test')).to.be.at.least 0
         done(err)
+
+  describe 'findSync', ->
+    it 'should find a file contents', ->
+      file = Resource path:'./folder/README.md', cwd:testPath
+      result = file.findSync 'config'
+      expect(result).to.be.a 'number'
+      expect(file.contents.toString().slice(result, result+6)).be.equal 'config'
+
+    it 'should find a folder contents', ->
+      file = Resource path:'.', cwd:testPath
+      result = file.findSync 'untitle'
+      expect(result.basename.indexOf('untitle')).to.be.at.least 0
+
+  describe 'find', ->
+    it 'should find a file contents', (done)->
+      file = Resource path:'./folder/README.md', cwd:testPath
+      file.find 'config', (err, result)->
+        unless err
+          expect(result).to.be.a 'number'
+          expect(file.contents.toString().slice(result, result+6)).be.equal 'config'
+        done(err)
+
+    it 'should find a folder contents', (done)->
+      file = Resource path:'.', cwd:testPath
+      file.find 'untitle', (err, result)->
+        unless err
+          expect(result.basename.indexOf('untitle')).to.be.at.least 0
+        done(err)
