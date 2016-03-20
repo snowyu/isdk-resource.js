@@ -9,9 +9,8 @@ isArray     = require 'util-ex/lib/is/type/array'
 require './init/load-config-folder'
 
 fs.cwd      = process.cwd
+fs.path     = path = require 'path.js'
 Resource.setFileSystem fs
-path = fs.path
-
 
 # the src is the file patterns for folder
 # the dest is the destination folder.
