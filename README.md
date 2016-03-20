@@ -14,6 +14,7 @@ The ISDKResource inherits from [resource-file][resource-file].
 * It registers the `'index'`, `'readme'`, `'_config'` basename as the folder configuration file.
 * It binds the [graceful-fs][graceful-fs] as the file system.
 * It binds the `process.cwd` to get the current working directory.
+* It binds the `path.js` package as the path function system.
 
 ## Usage
 
