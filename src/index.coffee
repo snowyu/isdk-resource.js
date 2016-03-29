@@ -57,7 +57,7 @@ module.exports = class IsdkResource
     if isFunction(aFromIndex)
       done = aFromIndex
       aFromIndex = 0
-    @load read:true, (err, contents)->
+    @load read:true, (err, contents)=>
       unless err
         result = @_indexOf contents, aSearchValue, aFromIndex
       done(err, result)
