@@ -33,7 +33,7 @@
     "load-config-folder": "^0.3.1",
     "minimatch-ex": "0.0.1",
     "path.js": "^1.0.7",
-    "resource-file": "^0.4.3",
+    "resource-file": "^0.4.6",
     "util-ex": "^0.3.14"
   },
   "devDependencies": {
